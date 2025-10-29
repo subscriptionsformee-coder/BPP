@@ -156,12 +156,14 @@ export class StepDetailsComponent implements OnInit {
   }
 
   minimizeWindow() {
-    this.isMinimized = !this.isMinimized;
-    
-    if (this.isMinimized) {
-      this.windowSize.height = 50;
-    } else {
-      this.windowSize.height = 700;
+    this.isMinimized = true;
+  }
+
+  restoreWindow() {
+    this.isMinimized = false;
+    if (!this.isMaximized) {
+      this.windowPosition = { x: 100, y: 100 };
+      this.windowSize = { width: 1200, height: 700 };
     }
   }
 

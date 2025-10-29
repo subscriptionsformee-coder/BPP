@@ -96,10 +96,24 @@
     </div>
   </div>
 
+  <!-- ==================== MINIMIZED CHAT WIDGET ==================== -->
+  <div class="minimized-chat-widget" *ngIf="showDocumentPopup && isMinimized" (click)="restoreWindow()">
+    <div class="widget-header">
+      <mat-icon>psychology</mat-icon>
+      <span>Automation Assistant</span>
+    </div>
+    <button class="widget-close" (click)="closeDocumentPopup(); $event.stopPropagation()" title="Close">
+      <mat-icon>close</mat-icon>
+    </button>
+    <button class="widget-expand" (click)="restoreWindow(); $event.stopPropagation()" title="Expand">
+      <mat-icon>open_in_full</mat-icon>
+    </button>
+  </div>
+
   <!-- ==================== DRAGGABLE FLOATING WINDOW ==================== -->
-  <div class="draggable-window-container" *ngIf="showDocumentPopup">
-    <div class="draggable-window" 
-         [ngClass]="{ 'maximized': isMaximized, 'minimized': isMinimized }"
+  <div class="draggable-window-container" *ngIf="showDocumentPopup && !isMinimized">
+    <div class="draggable-window"
+         [ngClass]="{ 'maximized': isMaximized }"
          [style.left.px]="windowPosition.x"
          [style.top.px]="windowPosition.y"
          [style.width.px]="windowSize.width"
@@ -111,7 +125,7 @@
            (dblclick)="toggleMaximize()">
         <div class="header-left">
           <mat-icon class="window-icon">dashboard</mat-icon>
-          <h3>Document Management & Assistant</h3>
+          <h3>Automation</h3>
         </div>
         <div class="header-controls">
           <button class="header-btn minimize" (click)="minimizeWindow()" title="Minimize">
@@ -127,7 +141,7 @@
       </div>
 
       <!-- Window Body (3-Column Layout) -->
-      <div class="draggable-body" *ngIf="!isMinimized">
+      <div class="draggable-body">
         
         <!-- LEFT PANEL: Configuration (Compact) -->
         <div class="config-panel">
@@ -202,7 +216,7 @@
                  [ngClass]="message.sender">
               
               <div class="msg-avatar" *ngIf="message.sender === 'bot'">
-                <mat-icon>smart_toy</mat-icon>
+                <mat-icon>psychology</mat-icon>
               </div>
 
               <div class="msg-content">
@@ -218,7 +232,7 @@
             <!-- Typing Indicator -->
             <div class="chat-msg bot" *ngIf="isSendingMessage">
               <div class="msg-avatar">
-                <mat-icon>smart_toy</mat-icon>
+                <mat-icon>psychology</mat-icon>
               </div>
               <div class="msg-content">
                 <div class="msg-bubble typing">
@@ -293,8 +307,8 @@
       </div>
 
       <!-- Resize Handle -->
-      <div class="resize-handle" 
-           *ngIf="!isMaximized && !isMinimized"
+      <div class="resize-handle"
+           *ngIf="!isMaximized"
            (mousedown)="startResizing($event)"></div>
     </div>
   </div>
